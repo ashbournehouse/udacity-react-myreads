@@ -4,11 +4,47 @@ html, body, .root {
 body {
   line-height: 1.5;
 }
-body, .app {
+body{
   background: white;
 }
+/* Set up a css grid for more robust layout */
 
-/* main page */
+.app {
+  background-color: #aaaaaa;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto 100px;
+  grid-template-areas:
+  'banner'
+  'content'
+  'footer';
+}
+
+
+.banner {
+  grid-area: banner;
+  display:  inline;
+}
+
+
+.content {
+  grid-area: content;
+  display: inline;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #666666;
+}
+
+/* The sections below now broken out
+   to componet folders in separate
+   css files
+*/
+
+/*************************************
+
+/* main page
 
 .list-books-title {
   padding: 10px 0;
@@ -62,7 +98,7 @@ body, .app {
   font-size: 0;
 }
 
-/* search page */
+/* search page
 
 .search-books-bar {
   position: fixed;
@@ -103,7 +139,7 @@ body, .app {
   padding: 80px 10px 20px;
 }
 
-/* books grid */
+/* books grid
 
 .books-grid {
   list-style-type: none;
@@ -161,7 +197,7 @@ body, .app {
   cursor: pointer;
 }
 
-/* book cover */
+/* book cover
 
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -172,3 +208,5 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+*************************************/

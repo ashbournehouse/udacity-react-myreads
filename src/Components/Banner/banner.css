@@ -1,0 +1,72 @@
+.banner-content {
+  background-color: #006633;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin: 0; border: 0; padding: 0;
+}
+
+.banner-image {
+  margin: -4px; border: 0; padding: 0;
+}
+
+.banner-text {
+  display: flex;
+  width: 100%;
+  flex-flow: column;
+  justify-content: flex-end;
+  align-content: space-around;
+  align-items: space-between;
+  margin: 0; border: 0; padding: 0;
+}
+
+.banner-main-heading {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0; border: 0; padding: 0;
+}
+.banner-main-heading h2 {
+  font-family: 'Avant Garde', 'Tahoma', 'Arial', 'Sans-Serif';
+  font-size: 3.2em;
+  color: #cccccc;
+  margin: 0; border: 0; padding: 0;
+}
+
+.banner-sub-heading {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0; border: 0; padding: 0;
+}
+
+.banner-sub-heading h4 {
+  font-family: 'Roboto', 'Avant Garde', 'Tahoma', 'Arial', 'Sans-Serif';
+  font-size: 1.6em;
+  color: #cccccc;
+  margin: 0; border: 0; padding: 0;
+}
+
+.debug-strip  {
+  height: 20px;
+  background-color: #ff0000;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: left;
+  margin: 8px 0 0 5px; border: 0; padding: 0;
+}
+
+.no-debug {
+  background-color: transparent;
+}
+
+.debug-strip p {
+  font-family: 'Avant Garde', 'Tahoma', 'Arial', 'Sans-Serif';
+  font-size: 0.8em;
+  color: #ffff00;
+  margin: 0 0 0 1em; border: 0; padding: 0;
+}
