@@ -3,14 +3,16 @@ import React from 'react';
 function Bookshelf(props) {
 
   const {shelfname, books} = props;
+  /**************************************************
   console.log(`Shelf name is: ${shelfname}`)
-  console.log('----------------------------------')
+  console.log('------------------------------------')
   books.map(book => {
     console.log(`Book title is: ${book.title}`)
     console.log(`Book author is: ${book.author}`)
     console.log(`Book imageURL is: ${book.imageURL}`)
     console.log('----------------------------------')
   })
+  **************************************************/
 
   return (
     <div className="bookshelf">
@@ -21,7 +23,7 @@ function Bookshelf(props) {
             <li key={book.title}>
               <div className="book">
                 <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.imageURL}}></div>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url('${book.imageURL}')`}}></div>
                   <div className="book-shelf-changer">
                     <select>
                       <option value="move" disabled>Move to...</option>
