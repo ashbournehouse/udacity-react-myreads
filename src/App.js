@@ -1,15 +1,19 @@
 import React from 'react'
+import {Routes, Route} from 'react-router-dom'
+import {Outlet, Link} from 'react-router-dom'
+
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
   // Temporarly break out css into probable components
 import './Components/Main/main.css'
-import './Components/Search/search.css'
 
 import Banner from './Components/Banner/banner.jsx'
 import Bookshelf from './Components/Bookshelf/bookshelf.jsx'
 import Footer from './Components/Footer/footer.jsx'
+import Search from './Components/Search/search.jsx'
+import BooksGrid from './Components/BooksGrid/booksgrid.jsx'
 
-class BooksApp extends React.Component {
+class App extends React.Component {
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -17,7 +21,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
     booksList: [
       {id: 1, title: "To Kill a Mockingbird" , author: "Harper Lee",
         imageURL: "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
@@ -91,18 +94,41 @@ class BooksApp extends React.Component {
     })
     console.log("Leaving componentDidMount")
   }
-
+/*
+  showMainPage() {
+    console.log("Entering showMainPage")
+    console.log(`Before ... selected page is: ${this.state.screen}}`)
+    this.setState({screen: 'main'})
+    console.log(`After ... selected page is: ${this.state.screen}`)
+    console.log("Leaving showMainPage")
+  }
+*/
   render() {
       //
       // The following logic produces an array of shelf names sorted by sortOrder value
-      //   then maps an array of shefl names from this.
+      //   then maps an array of shelf names from this.
       //
     //const sortedShelves = this.state.bookshelves.sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1)
      //
     return (
       <div className="app">
         <Banner main="MyReads" sub="A project for the Udacity React Developer Course" />
-        {this.state.showSearchPage ? (
+        <Routes>
+          <Route path="*" element={<BooksGrid />} />
+          <Route path="search" element={<Search />} />
+          <Route path="booksgrid" element={<BooksGrid />} />
+        </Routes>
+       <Footer />
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+/*****************************************************
+
           <div className="content search-books ">
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
@@ -114,7 +140,8 @@ class BooksApp extends React.Component {
 
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
-                */}
+                *-
+
                 <input type="text" placeholder="Search by title or author"/>
 
               </div>
@@ -123,28 +150,6 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
-        ) : (
-          <div className="content list-books">
-            <div className="list-books-content">
-              <div className="bookshelves">
-                {this.state.sortedShelvesWithBookAllocations.map((sortedShelf) => (
-                  <Bookshelf
-                    shelfname={sortedShelf.name}
-                    books={sortedShelf.books}
-                    bookshelves={this.state.bookshelves}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>
-        )}
-        <Footer />
-      </div>
-    )
-  }
-}
 
-export default BooksApp
+
+*****************************************************/
