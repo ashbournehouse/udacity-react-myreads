@@ -4,10 +4,10 @@ import './App.css'
   // Temporarly break out css into probable components
 import './Components/Main/main.css'
 import './Components/Search/search.css'
-import './Components/BooksGrid/booksgrid.css'
 
 import Banner from './Components/Banner/banner.jsx'
 import Bookshelf from './Components/Bookshelf/bookshelf.jsx'
+import Footer from './Components/Footer/footer.jsx'
 
 class BooksApp extends React.Component {
   state = {
@@ -141,6 +141,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )}
+        <Footer />
       </div>
     )
   }
