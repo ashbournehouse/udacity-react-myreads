@@ -41,6 +41,7 @@
 /* These book-shelf-changer styles may
 /*   move to another css file
 /********************************************/
+/*
 .book-shelf-changer {
   position: absolute;
   right: 0;
@@ -58,10 +59,13 @@
 .book-shelf-changer select {
   width: 100%;
   height: 100%;
+  display: block;
+  position: relative;
+  left: 0px;
   opacity: 0;
   cursor: pointer;
 }
-
+*/
 .book-title, .book-authors {
   font-size: 0.8em;
 }

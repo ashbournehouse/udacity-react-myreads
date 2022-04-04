@@ -11,6 +11,13 @@ function Footer(props) {
   const left = props.left ? props.left : "Andrew Biller";
   const centre = props.centre ? props.centre : "Ashbourne House Technology Ltd";
   const right = props.right ? props.right : "Date goes here";
+  /**************************************************/
+  console.log('====================================')
+  console.log(`Footer left is: ${left}`)
+  console.log(`Footer centre is: ${centre}`)
+  console.log(`Footer right is: ${right}`)
+  console.log('------------------------------------')
+  /**************************************************/
 
   return (
     <div className="footer">
