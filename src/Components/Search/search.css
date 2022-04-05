@@ -1,15 +1,17 @@
 /* search page css*/
 
-.search-books {}
+.search-books {
+
+}
 
 .search-books-bar {
-  /*position: fixed;*/
-  width: 100%;
+  width: 90%;
   top: 0;
   left: 0;
   z-index: 5;
   display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+  margin: 0 auto; border: 1px solid red; padding: 10px 0;
 }
 .search-books-bar input {
   width: 100%;
@@ -31,11 +33,14 @@
   background-repeat: no-repeat;
   background-size: 28px;
   font-size: 0;
+  border-top: 10px solid transparent;
+  border-right: 2px solid #999999;
+  border-bottom: 10px solid transparent;
 }
 
 .search-books-input-wrapper {
   flex: 1;
-  background: #e9e;
+  background: #cc99cc;
 }
 
 .search-books-results {

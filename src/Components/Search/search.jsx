@@ -24,11 +24,10 @@ class Search extends React.Component {
 		//const {onNavigate} = this.props;
 
 		return (
-      <div className="content search-books ">
+      <div className="search-books">
 	      <div className="search-books-bar">
 	        <a className="close-search">Close</a>
 	        <div className="search-books-input-wrapper">
-        		<h2>This is where the search page will go.</h2>
 	          {/*
 	            NOTES: The search from BooksAPI is limited to a particular set of search terms.
 	            You can find these search terms here:
@@ -43,10 +42,6 @@ class Search extends React.Component {
 	      <div className="search-books-results">
 	        <ol className="books-grid"></ol>
 	      </div>
-        <div>
-          <Link to='/booksgrid'>BooksGrid</Link>
-          <Link to='/'>Root</Link>
-        </div>
  	    </div>
 		)
 	}

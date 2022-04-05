@@ -2,11 +2,9 @@
 
 .content {
 	background-color: #999999;
-  margin: 0; border: 0; padding: 0;
+  margin: 0; border: 0; padding: 0 0 20px 0;
 }
-.content {
-	border: 1px solid yellow;
-}
+/*.content {border: 1px solid yellow;}*/
 .content h2 {
   font-family: 'Avant Garde', 'Tahoma', 'Arial', 'Sans-Serif';
 	font-size: 1.8em;
@@ -23,17 +21,17 @@
 }
 
 .tabs-holder {
-	height: 80%;
+	/*height: 60%;*/
 	width: 95%;
 	background-color: transparent;
 	display: grid;
 	grid-gap: 0px;
   grid-template-columns: 200px 200px 1fr;
-  grid-template-rows: 40px auto;
+  grid-template-rows: 80px auto;
   grid-template-areas:
   "tab-1 tab-2 spare"
   "tabbed-content tabbed-content tabbed-content";
-  margin: auto; border: 0; padding: 0;
+  margin: 0 auto 20px auto; border: 0; padding: 0;
 }
 
 .tab-1, .tab-2 {
@@ -60,10 +58,21 @@
 }
 .tabbed-content {
 	grid-area: tabbed-content;
-	background-color: #666699;
-	text-align: center;
+	background-color: #6666ff;
+	margin: 0 0 20px 0; border: 0; padding: 0;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+.browse-bookshelves, .search-books {
 	margin: 0; border: 0; padding: 0;
 	border-top-right-radius: 20px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
+}
+.browse-bookshelves {background-color: #996666;}
+.search-books {background-color: #669966;}
+
+.browse-link, .search-link {
+	padding: 0 30%;
 }

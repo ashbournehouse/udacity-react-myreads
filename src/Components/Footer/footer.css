@@ -11,9 +11,7 @@
 	background-color: #666666;
   margin: 0; border: 0; padding: 0;
 }
-.footer {
-	border: 1px solid #00ff00;
-}
+/*.footer {border: 1px solid #00ff00;}*/
 
 .footerLeft, .footerCentre, .footerRight {
 	flex-grow: 1;
@@ -22,6 +20,6 @@
 	color: #cccccc;
   margin: 0; border: 0; padding: 10px 50px;
 }
-.footerLeft {text-align: left;}
+.footerLeft {text-align: center;}
 .footerCentre {text-align: center;}
-.footerRight {text-align: right;}
+.footerRight {text-align: center;}

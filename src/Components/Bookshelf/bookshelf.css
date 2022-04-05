@@ -1,11 +1,24 @@
 /* bookshelf classes css*/
 
-.bookshelf {}
+.bookshelf {
+  margin: 0; border: 0; padding: 0;
+    /* The following fixes a gap above
+    ** the books grid ???? !!!
+    */
+  border-top: 1px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 2px solid #663333;
+  border-left: 100px solid transparent;
+}
 
-.bookshelf-books {}
+.bookshelf-books {
+  margin: 0; border: 0; padding: 0;
+}
   /* This should be an <h2> element */
 
-.bookshelf-title {}
+.bookshelf-title {
+    margin: 0; border: 0; padding: 0;
+}
 
 .books-grid {
   display: flex;

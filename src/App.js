@@ -10,9 +10,7 @@ import './Components/Main/main.css'
 import Banner from './Components/Banner/banner.jsx'
 import Content from './Components/Content/content.jsx'
 import Footer from './Components/Footer/footer.jsx'
-import Bookshelf from './Components/Bookshelf/bookshelf.jsx'
 import Search from './Components/Search/search.jsx'
-import BooksGrid from './Components/BooksGrid/booksgrid.jsx'
 
 class App extends React.Component {
   state = {
@@ -57,7 +55,8 @@ class App extends React.Component {
       {shelfId: 3, bookIds: [5, 6, 7]},
       {shelfId: 4, bookIds: []},
     ],
-    sortedShelvesWithBookAllocations: []
+    sortedShelvesWithBookAllocations: [],
+    screen: 'search',
   }
   componentDidMount() {
     console.log("Entering componentDidMount")
@@ -116,7 +115,8 @@ class App extends React.Component {
         <Banner main="MyReads"
                 sub="A project for the Udacity React Developer Course"
         />
-        <Content />
+        <Content sortedShelvesWithBookAllocations={this.state.sortedShelvesWithBookAllocations}
+        />
         <Footer />
       </div>
     )
