@@ -3,7 +3,6 @@ import {Routes, Route} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 
 import Bookshelf from '../Bookshelf/bookshelf.jsx'
-//import './booksgrid.css'
 
 function Browse(props) {
   const {sortedShelvesWithBookAllocations} = props;

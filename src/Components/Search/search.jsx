@@ -1,27 +1,10 @@
 import React from 'react';
-import {Routes, Route} from 'react-router-dom'
-import {Link} from 'react-router-dom'
 
 import './search.css'
 
 class Search extends React.Component {
 
-/*
-  constructor(props) {
-    super(props);
-  };
-*/
-
-  componentDidMount() {
-    console.log("Entering Search - componentDidMount");
-    //console.log(JSON.stringify(this.onNavigate()));
-    console.log("Leaving Search - componentDidMount");
-    return true
-  }
-
 	render () {
-			// Attempt to destructure the props ...
-		//const {onNavigate} = this.props;
 
 		return (
       <div className="search">
