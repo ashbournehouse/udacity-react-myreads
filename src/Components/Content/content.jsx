@@ -1,15 +1,12 @@
 import React from 'react';
-import {Outlet, Link} from 'react-router-dom'
+import {Routes, Route, Outlet, Link} from 'react-router-dom'
 
 import './content.css';
 
-import Booksgrid from '../Booksgrid/booksgrid.jsx'
+import Browse from '../Browse/browse.jsx'
 import Search from '../Search/search.jsx'
 
 class Content extends React.Component {
-   state = {
-      screen: 'browse',
-   }
 
    render() {
       const {sortedShelvesWithBookAllocations} = this.props;
@@ -20,32 +17,27 @@ class Content extends React.Component {
             <p>Browse existing reads or search for new books and add them to the shelves.</p>
             <div className="tabs-holder">
                <div className="tab-1">
-                  <Link to='/booksgrid'><h4>Browse</h4></Link>
-                  <a href='#browse'
-                     onClick={() => {this.setState(() => ({screen: 'browse'}))}}
-                     className='browse-link'>
-                     '#browse'
-                  </a>
+                  <Link to='/browse'><h4>Browse Books</h4></Link>
                </div>
                <div className="tab-2">
                   <Link to='/search'><h4>Search and Add</h4></Link>
-                  <a href='#search'
-                     onClick={() => {this.setState(() => ({screen: 'search'}))}}
-                     className='search-link'>
-                     '#search'
-                  </a>
                </div>
                <div className="tabbed-content">
-                  {this.state.screen === 'browse' &&
-                     <div className="browse-bookshelves">
-                        <Booksgrid sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations} />
-                     </div>
-                  }
-                  {this.state.screen === 'search' &&
-                     <div className="search-books">
-                        <Search />
-                     </div>
-                  }
+                  <Routes>
+                     <Route path="/"
+                           element={<Browse
+                                 sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                           />}
+                     />
+                     <Route path="/browse"
+                           element={<Browse
+                                 sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                           />}
+                     />
+                     <Route path="/search"
+                           element={<Search />}
+                     />
+                  </Routes>
                </div>
             </div>
          </div>

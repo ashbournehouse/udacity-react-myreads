@@ -5,13 +5,13 @@ import {Link} from 'react-router-dom'
 import Bookshelf from '../Bookshelf/bookshelf.jsx'
 //import './booksgrid.css'
 
-function Booksgrid(props) {
+function Browse(props) {
   const {sortedShelvesWithBookAllocations} = props;
 
 	return (
-    <div className="booksgrid">
+    <div className="browse">
      {sortedShelvesWithBookAllocations.map(bookshelf => (
-        <div>
+        <div key={bookshelf.name}>
           <Bookshelf shelfname={bookshelf.name} books={bookshelf.books} />
         </div>
       ))}
@@ -19,4 +19,4 @@ function Booksgrid(props) {
 	)
 }
 
-export default Booksgrid;
+export default Browse;

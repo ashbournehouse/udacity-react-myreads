@@ -22,7 +22,7 @@ function ShelfChanger(props) {
       <select>
         <option value="move" disabled>Move to...</option>
         {shelves.map(shelf =>
-          <option value={shelf.toLowerCase()}>{shelf}</option>
+          <option key={shelf} value={shelf.toLowerCase()}>{shelf}</option>
         )}
      </select>
     </div>

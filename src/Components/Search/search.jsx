@@ -24,7 +24,7 @@ class Search extends React.Component {
 		//const {onNavigate} = this.props;
 
 		return (
-      <div className="search-books">
+      <div className="search">
 	      <div className="search-books-bar">
 	        <a className="close-search">Close</a>
 	        <div className="search-books-input-wrapper">

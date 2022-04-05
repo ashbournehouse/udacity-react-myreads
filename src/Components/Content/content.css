@@ -27,7 +27,7 @@
 	display: grid;
 	grid-gap: 0px;
   grid-template-columns: 200px 200px 1fr;
-  grid-template-rows: 80px auto;
+  grid-template-rows: 40px auto;
   grid-template-areas:
   "tab-1 tab-2 spare"
   "tabbed-content tabbed-content tabbed-content";
@@ -64,15 +64,15 @@
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
 }
-.browse-bookshelves, .search-books {
+.browse, .search {
 	margin: 0; border: 0; padding: 0;
 	border-top-right-radius: 20px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
 }
-.browse-bookshelves {background-color: #996666;}
-.search-books {background-color: #669966;}
+.browse {background-color: #996666;}
+.search {background-color: #669966;}
 
 .browse-link, .search-link {
-	padding: 0 30%;
+	padding: 0 30 %;
 }
