@@ -1,0 +1,69 @@
+/* content classes css*/
+
+.content {
+	background-color: #999999;
+  margin: 0; border: 0; padding: 0;
+}
+.content {
+	border: 1px solid yellow;
+}
+.content h2 {
+  font-family: 'Avant Garde', 'Tahoma', 'Arial', 'Sans-Serif';
+	font-size: 1.8em;
+	font-weight: lighter;
+	color: #000000;
+	margin: 0.5em 0 0 1.5em; border: 0; padding: 0;
+}
+.content p {
+  font-family: 'Palatino', 'Tahoma', 'Arial', 'Serif';
+	font-size: 1.2em;
+	font-weight: normal;
+	color: #000000;
+	margin: 0.5em 0 1.6em 3em; border: 0; padding: 0;
+}
+
+.tabs-holder {
+	height: 80%;
+	width: 95%;
+	background-color: transparent;
+	display: grid;
+	grid-gap: 0px;
+  grid-template-columns: 200px 200px 1fr;
+  grid-template-rows: 40px auto;
+  grid-template-areas:
+  "tab-1 tab-2 spare"
+  "tabbed-content tabbed-content tabbed-content";
+  margin: auto; border: 0; padding: 0;
+}
+
+.tab-1, .tab-2 {
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	margin: 0; border: 0; padding: 0;
+}
+.tab-1 h4, .tab-2 h4, .tabbed-content h4 {
+	width: 90%;
+	text-align: center;
+  font-family: 'Avant Garde', 'Tahoma', 'Arial', 'Sans-Serif';
+	font-size: 1.4em;
+	font-weight:  lighter;
+	color: #000000;
+	margin: auto; border: 0; padding: 2% 0;
+}
+.tab-1 {
+	grid-area: tab-1;
+	background-color: #996666;
+}
+.tab-2 {
+	grid-area: tab-2;
+	background-color: #669966;
+}
+.tabbed-content {
+	grid-area: tabbed-content;
+	background-color: #666699;
+	text-align: center;
+	margin: 0; border: 0; padding: 0;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}

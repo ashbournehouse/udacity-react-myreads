@@ -13,9 +13,11 @@ root.render(
 	<BrowserRouter>
 		<Routes>
 			<Route exact path="/" element={<App />}>
+			{/*}
 				<Route path="search" element={<Search />} />
 				<Route path="booksgrid" element={<Booksgrid />} />
 				<Route path="*" element={<Booksgrid />} />
+			*/}
 			</Route>
 		</Routes>
 	</BrowserRouter>

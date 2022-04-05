@@ -13,28 +13,35 @@ body{
   background-color: #aaaaaa;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: auto auto 100px;
+  grid-template-rows: auto 800px auto;
   grid-template-areas:
   'banner'
   'content'
   'footer';
 }
 
-
 .banner {
   grid-area: banner;
-  display:  inline;
+    /*************************************
+    / Other css properties set locally in
+    /  /Components/Banner/banner.css
+    *************************************/
 }
-
 
 .content {
   grid-area: content;
-  display: inline;
+    /*************************************
+    / Other css properties set locally in
+    /  /Components/Content/content.css
+    *************************************/
 }
 
 .footer {
   grid-area: footer;
-  background-color: #666666;
+    /*************************************
+    / Other css properties set locally in
+    /  /Components/Footer/footer.css
+    *************************************/
 }
 
 /* The sections below now broken out

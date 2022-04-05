@@ -11,11 +11,15 @@
 	background-color: #666666;
   margin: 0; border: 0; padding: 0;
 }
+.footer {
+	border: 1px solid #00ff00;
+}
 
 .footerLeft, .footerCentre, .footerRight {
 	flex-grow: 1;
 	height: 100%;
 	font-size: 1em;
+	color: #cccccc;
   margin: 0; border: 0; padding: 10px 50px;
 }
 .footerLeft {text-align: left;}

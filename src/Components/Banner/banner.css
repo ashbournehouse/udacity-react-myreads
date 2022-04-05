@@ -6,6 +6,10 @@
   align-items: stretch;
   margin: 0; border: 0; padding: 0;
 }
+.banner-content {
+  border: 1px solid red;
+}
+
 
 .banner-image {
   margin: -4px; border: 0; padding: 0;
