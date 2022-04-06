@@ -5,7 +5,7 @@ import ShelfChanger from '../ShelfChanger/shelfchanger.jsx'
 
 function Bookshelf(props) {
 
-  const {shelfName, books} = props;
+  const {shelfName, books, changeAllocation} = props;
     /**************************************************
   console.log(`Shelf name is: ${shelfName}`)
   console.log('------------------------------------')
@@ -27,7 +27,9 @@ function Bookshelf(props) {
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{backgroundImage: `url('${book.imageURL}')`}}></div>
-                    <ShelfChanger shelfName={shelfName} shelves={["Currently Reading","Want to Read", "Read", "None"]} />
+                    <ShelfChanger shelfName={shelfName}
+                                  shelves={["Currently Reading","Want to Read", "Read", "None"]}
+                                  changeAllocation = {changeAllocation}/>
                   </div>
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.author}</div>

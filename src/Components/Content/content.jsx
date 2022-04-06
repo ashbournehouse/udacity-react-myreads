@@ -13,7 +13,7 @@ class Content extends React.Component {
          /* sortedShelvesWithBookAllocations get passed thru' from
          /* App.js to the 'Browse' component
          */
-      const {sortedShelvesWithBookAllocations} = this.props;
+      const {sortedShelvesWithBookAllocations, changeAllocation} = this.props;
 
       return (
          <div className="content">
@@ -40,11 +40,13 @@ class Content extends React.Component {
                      <Route path="/"
                            element={<Browse
                                  sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                                 changeAllocation = {changeAllocation}
                            />}
                      />
                      <Route path="/browse"
                            element={<Browse
                                  sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                                 changeAllocation = {changeAllocation}
                            />}
                      />
                      <Route path="/search"

@@ -55,8 +55,14 @@ class App extends React.Component {
     sortedShelvesWithBookAllocations: [],
     screen: 'search',
   }
-  componentDidMount() {
-    console.log("Entering componentDidMount")
+
+  constructor(props) {
+    super(props)
+    this.buildDataSet()
+  }
+
+  buildDataSet() {
+    console.log("Entering buildDataSet")
       //
       // The following logic produces an array of shelf names sorted by sortOrder value
       //   then maps an array of shelf names from this.
@@ -86,20 +92,59 @@ class App extends React.Component {
     })
     console.log(JSON.stringify(sortedShelves))
     console.log("**********************************************")
-    this.setState({
+    /*this.setState({
       sortedShelvesWithBookAllocations: sortedShelves
     })
-    console.log("Leaving componentDidMount")
+    */
+    this.state.sortedShelvesWithBookAllocations = sortedShelves
+    console.log("Leaving buildDataSet")
   }
-/*
-  showMainPage() {
-    console.log("Entering showMainPage")
-    console.log(`Before ... selected page is: ${this.state.screen}}`)
-    this.setState({screen: 'main'})
-    console.log(`After ... selected page is: ${this.state.screen}`)
-    console.log("Leaving showMainPage")
+
+  changeAllocation = (book, toShelf) => {
+    var newAllocations =[];
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    console.log(`Book ID is: ${book}`);
+    console.log(`Shelf to move to is: ${toShelf}`);
+    this.state.allocations.map(allocation => {
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      console.log(`Working on shelf: ${allocation.shelfId}`);
+      console.log(`BEFORE bookIds are: ${allocation.bookIds}`);
+      if (allocation.bookIds.includes(book)) {
+        if (allocation.shelfId !== toShelf) {
+          const position = allocation.bookIds.indexOf(book);
+          allocation.bookIds.splice(position,1);
+          //allocation.bookIds = tempBookIds.splice(0);
+        }
+     } else {
+        console.log(` ... book ${book} not on this shelf`);
+        if (allocation.shelfId === toShelf) {
+          console.log(`but this is the target shelf for the move`);
+          console.log(`Type of allocation.bookIds is: ${typeof allocation.bookIds}`)
+          var tempBookIds2 = allocation.bookIds.concat([book]);
+          console.log(`Type of tempBookIds2 is: ${typeof tempBookIds2}`)
+          allocation.bookIds = tempBookIds2.splice(0).sort();
+        }
+      }
+      console.log(" ... new book allocations: ");
+      console.log(`${allocation.bookIds}`);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      newAllocations.push({shelfId: allocation.shelfId, bookIds: allocation.bookIds })
+      console.log("Checking newAllocations: ");
+      newAllocations.map(allocation => {
+        console.log(`Shelf: ${allocation.shelfId}  Books: ${allocation.bookIds} `);
+      })
+    })
+    this.setState({allocations: newAllocations})
+    this.buildDataSet()
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    console.log("Checking new state: ");
+    this.state.allocations.map(allocation => {
+      console.log(`Shelf: ${allocation.shelfId}  Books: ${allocation.bookIds} `);
+    })
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
   }
-*/
+
+
   render() {
       //
       // The following logic produces an array of shelf names sorted by sortOrder value
@@ -113,6 +158,7 @@ class App extends React.Component {
                 sub="A project for the Udacity React Developer Course"
         />
         <Content sortedShelvesWithBookAllocations={this.state.sortedShelvesWithBookAllocations}
+                  changeAllocation = {this.changeAllocation}
         />
         <Footer />
       </div>

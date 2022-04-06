@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import Bookshelf from '../Bookshelf/bookshelf.jsx'
 
 function Browse(props) {
-  const {sortedShelvesWithBookAllocations} = props;
+  const {sortedShelvesWithBookAllocations, changeAllocation} = props;
 
 	return (
     <div className="browse">
@@ -32,7 +32,10 @@ function Browse(props) {
         */}
      {sortedShelvesWithBookAllocations.map(bookshelf => (
         <div key={bookshelf.name}>
-          <Bookshelf shelfName={bookshelf.name} books={bookshelf.books} />
+          <Bookshelf shelfName={bookshelf.name}
+                      books={bookshelf.books}
+                      changeAllocation={changeAllocation}
+          />
         </div>
       ))}
     </div>

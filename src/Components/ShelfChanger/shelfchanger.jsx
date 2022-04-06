@@ -7,15 +7,18 @@ class ShelfChanger extends React.Component {
 
   state = {
     shelvesData: [],
+    selectedShelf: "",
   }
+
 
   constructor(props) {
     super(props);
+    const tempShelvesData = this.state.shelvesData.slice(0);
+    const {shelfName, shelves, changeAllocation} = this.props;
+    changeAllocation
       //
       // Update the state from props before rendering
       //
-    const {shelfName, shelves} = this.props;
-    const tempShelvesData = this.state.shelvesData.slice(0);
     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
     console.log(`Shelf name is: ${shelfName}`);
     console.log(`Shelf options are:`);
@@ -35,44 +38,25 @@ class ShelfChanger extends React.Component {
     console.log('Updated shelvesData is:');
     console.log(JSON.stringify(tempShelvesData));
     });
-    this.state.shelvesData = tempShelvesData;
-    console.log('Updated state is:');
-    console.log(JSON.stringify(this.state));
-    console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
-  }
-
-/*
-  componentWillMount() {
-    const {shelfName, shelves} = this.props;
-    const tempShelvesData = this.state.shelvesData.slice(0);
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-    console.log(`Shelf name is: ${shelfName}`);
-    console.log(`Shelf options are:`);
-    shelves.map(shelf => {
-      console.log(` - ${shelf}`);
+    tempShelvesData.map(tempShelfData => {
+      if (tempShelfData.shelfSelected === true) {
+        this.state.selectedShelf = tempShelfData.shelfValue;
+      }
     })
-    console.log('-----------------------------------');
-    console.log(JSON.stringify(tempShelvesData));
-    console.log('-----------------------------------');
-    shelves.map(shelf => {
-      console.log(`About to add to state for ${shelf}`);
-      tempShelvesData.push({
-            shelfName: shelf,
-            shelfValue: (shelf.toLowerCase().replace(/\s/g,'')),
-            shelfSelected: (shelf === shelfName ? true : false),
-      });
-    console.log('Updated shelvesData is:');
-    console.log(JSON.stringify(tempShelvesData));
-    });
     this.state.shelvesData = tempShelvesData;
     console.log('Updated state is:');
     console.log(JSON.stringify(this.state));
     console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
   }
-*/
 
-  handleSelect() {
-    console.log(`Selected value is: ${event.target.value}`)
+  handleSelect = (event) => {
+    const {changeAllocation} = this.props;
+    console.log(`Selected value is: ${event.target.value}`);
+    this.state.selectedShelf = event.target.value;
+    changeAllocation(4,1);
+    console.log('In handleSelect - updated state is:');
+    console.log(JSON.stringify(this.state));
+    console.log('***********************************');
   }
 
   render() {
@@ -90,12 +74,13 @@ class ShelfChanger extends React.Component {
    })
     return (
       <div className="book-shelf-changer">
-        <select onChange={this.handleSelect}>
+        <select onChange={this.handleSelect}
+                defaultValue={this.state.selectedShelf}
+        >
           <option value="move" disabled>Move to...</option>
           {this.state.shelvesData.map(thisShelf =>
             <option key={thisShelf.shelfValue}
                     value={thisShelf.shelfValue}
-                    selected = {thisShelf.shelfSelected ? true : false}
             >
               {thisShelf.shelfName}
             </option>
