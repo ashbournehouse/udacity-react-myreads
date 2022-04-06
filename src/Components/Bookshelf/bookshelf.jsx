@@ -5,9 +5,9 @@ import ShelfChanger from '../ShelfChanger/shelfchanger.jsx'
 
 function Bookshelf(props) {
 
-  const {shelfname, books} = props;
-  /**************************************************
-  console.log(`Shelf name is: ${shelfname}`)
+  const {shelfName, books} = props;
+    /**************************************************
+  console.log(`Shelf name is: ${shelfName}`)
   console.log('------------------------------------')
   books.map(book => {
     console.log(`Book title is: ${book.title}`)
@@ -15,11 +15,11 @@ function Bookshelf(props) {
     console.log(`Book imageURL is: ${book.imageURL}`)
     console.log('----------------------------------')
   })
-  **************************************************/
+    **************************************************/
   return (
     (books.length > 0) ? (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{shelfname}</h2>
+        <h2 className="bookshelf-title">{shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {books.map((book) => (
@@ -27,7 +27,7 @@ function Bookshelf(props) {
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{backgroundImage: `url('${book.imageURL}')`}}></div>
-                    <ShelfChanger shelves={["Currently Reading","Want to Read", "Read", "None"]} />
+                    <ShelfChanger shelfName={shelfName} shelves={["Currently Reading","Want to Read", "Read", "None"]} />
                   </div>
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.author}</div>
