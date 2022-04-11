@@ -7,13 +7,30 @@ import Browse from '../Browse/browse.jsx'
 import Search from '../Search/search.jsx'
 
 class Content extends React.Component {
+  /****************************************************
+  /* This component controls the display of all the
+  /* requied 'tabbed' sub-pages and the switching
+  /* between them.
+  /*
+  /* TO DO:
+  /*   Currently data for the browse component is
+  /*   prepared in the app component and a reasonably
+  /*   complex object 'sortedShelvesWithBookAllocations'
+  /*   gets passed thru' from App.js to the 'Browse'
+  /*   component.
+  /*
+  /*   A better pattern might be to pass a function
+  /*   to each component further down the hierarchy
+  /*   that fetches and prepares the data required
+  /*   by that component.
+  ****************************************************/
 
    render() {
-         /*
-         /* sortedShelvesWithBookAllocations get passed thru' from
-         /* App.js to the 'Browse' component
-         */
-      const {sortedShelvesWithBookAllocations, changeAllocation} = this.props;
+      const {sortedShelvesWithBookAllocations,
+               dataForBookshelf,
+               dataForShelfChanger,
+               changeAllocation
+            } = this.props;
 
       return (
          <div className="content">
@@ -40,12 +57,16 @@ class Content extends React.Component {
                      <Route path="/"
                            element={<Browse
                                  sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                                 dataForBookshelf ={dataForBookshelf}
+                                 dataForShelfChanger = {dataForShelfChanger}
                                  changeAllocation = {changeAllocation}
                            />}
                      />
                      <Route path="/browse"
                            element={<Browse
                                  sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                                 dataForBookshelf ={dataForBookshelf}
+                                 dataForShelfChanger ={dataForShelfChanger}
                                  changeAllocation = {changeAllocation}
                            />}
                      />

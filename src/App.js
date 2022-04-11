@@ -10,13 +10,13 @@ import Content from './Components/Content/content.jsx'
 import Footer from './Components/Footer/footer.jsx'
 
 class App extends React.Component {
+    // TO DO:
+    //   Move this data to a JSON file so that it persists
+    //   when the page is refreshed!!!
+    //
+    //  Refresh using a constructor, save on change!
+    //
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     booksList: [
       {id: 1, title: "To Kill a Mockingbird" , author: "Harper Lee",
         imageURL: "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
@@ -31,7 +31,7 @@ class App extends React.Component {
         imageURL: "http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api",
       },
       {id: 5, title: "The Hobbit", author: "J.R.R. Tolkien",
-        imageURL: "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api" ,
+        imageURL: "https://books.google.co.uk/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73VkQcJ2bOyIgAqK30F1kcDTf3v2ty6EB07H_qPUPOjEJWvF2insKi4-rKmI5Tv-k3ilZuUz4bng_j1hY5r97ehF3X18xoiGbtIoO6_1vXHeEobA8ZavsCEF0UQzhQOK27_BWn8" ,
       },
       {id: 6, title: "Oh, the Places You'll Go!", author: "Seuss",
         imageURL: "http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api",
@@ -58,7 +58,10 @@ class App extends React.Component {
 
   constructor(props) {
     super(props)
+    console.log('>>> Entering APP constructor >>>>>>>>')
+
     this.buildDataSet()
+    console.log('>>> Leaving APP constructor >>>>>>>>')
   }
 
   buildDataSet() {
@@ -92,56 +95,111 @@ class App extends React.Component {
     })
     console.log(JSON.stringify(sortedShelves))
     console.log("**********************************************")
-    /*this.setState({
-      sortedShelvesWithBookAllocations: sortedShelves
-    })
-    */
     this.state.sortedShelvesWithBookAllocations = sortedShelves
     console.log("Leaving buildDataSet")
   }
 
-  changeAllocation = (book, toShelf) => {
-    var newAllocations =[];
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    console.log(`Book ID is: ${book}`);
-    console.log(`Shelf to move to is: ${toShelf}`);
+  dataForBookshelf = (shelfId) => {
+      // Should reurn an object a bit
+      // like this
+      //  {shelfName: string,
+      //   books: [{
+      //     bookId: integer,
+      //     bookTitle: string,
+      //     bookAuthor: string,
+      //     bookCoverURL: string
+      //    }]}
+    console.log('>>> Entering dataForBookshelf >>>>>>>>')
+    var bookshelfData = {
+      shelfName: "",
+      books: [],
+    }
+    this.state.bookshelves.map(shelf => {
+      if (shelf.id === shelfId) {
+        bookshelfData.shelfName = shelf.name;
+      }
+    })
     this.state.allocations.map(allocation => {
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      console.log(`Working on shelf: ${allocation.shelfId}`);
-      console.log(`BEFORE bookIds are: ${allocation.bookIds}`);
-      if (allocation.bookIds.includes(book)) {
-        if (allocation.shelfId !== toShelf) {
-          const position = allocation.bookIds.indexOf(book);
-          allocation.bookIds.splice(position,1);
-          //allocation.bookIds = tempBookIds.splice(0);
+      if (allocation.shelfId === shelfId) {
+        console.log('----- shelfId MATCH, books are:');
+        allocation.bookIds.map(bookId => {
+          this.state.booksList.map(book => {
+            if (book.id === bookId) {
+              bookshelfData.books.push(book)
+              console.log(`Book title is: ${book.title}`)
+            }
+          })
+        })
+      }
+    })
+    console.log(JSON.stringify(bookshelfData))
+    console.log('>>> Leaving dataForBookshelf >>>>>>>>')
+    return bookshelfData;
+  }
+
+  dataForShelfChanger = () => {
+      // Should return an object a bit
+      // like this
+      //  {bookID: integer,
+      //    shelfChoices: [{
+      //      shelfId: integer,
+      //      shelfName: string,
+      //  }]}
+    console.log('>>> Entering dataForShelfChanger >>>>>>>>')
+    var shelfChangerData = {shelfChoices: []};
+    console.log(JSON.stringify(shelfChangerData))
+    this.state.bookshelves.map(shelf => {
+      shelfChangerData.shelfChoices.push(
+        {shelfId: shelf.id,
+          shelfName: shelf.name,
         }
-     } else {
-        console.log(` ... book ${book} not on this shelf`);
-        if (allocation.shelfId === toShelf) {
-          console.log(`but this is the target shelf for the move`);
-          console.log(`Type of allocation.bookIds is: ${typeof allocation.bookIds}`)
-          var tempBookIds2 = allocation.bookIds.concat([book]);
-          console.log(`Type of tempBookIds2 is: ${typeof tempBookIds2}`)
-          allocation.bookIds = tempBookIds2.splice(0).sort();
+      )
+    })
+    console.log(' - about to leave dataForShelfChanger')
+    console.log(JSON.stringify(shelfChangerData));
+    console.log('>>> Leaving dataForShelfChanger >>>>>>>>')
+    return shelfChangerData;
+  }
+
+  changeAllocation = (bookId, toShelfId) => {
+      //
+      // TO DO:
+      //   - Check if toShelf actualy exists!!
+      //   - Have a big tidy up of all the logging!!!
+      //
+    console.log(">>> Entering changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
+    console.log(`Book ID is: ${bookId}`);
+    console.log(`  - type of bookId is: ${typeof bookId}`);
+    console.log(`Shelf to move to is: ${toShelfId}`);
+    console.log(`  - type of toShelfId is: ${typeof toShelfId}`);
+    var newAllocations = this.state.allocations.slice(0);
+    console.log(`New allocations: `);
+    console.log(JSON.stringify(newAllocations));
+      // Remove book from current shelf
+    newAllocations.map(allocation => {
+      if (allocation.bookIds.includes(bookId)) {
+        const index = allocation.bookIds.indexOf(bookId);
+        if (index > -1){
+          allocation.bookIds.splice(index, 1);
         }
       }
-      console.log(" ... new book allocations: ");
-      console.log(`${allocation.bookIds}`);
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      newAllocations.push({shelfId: allocation.shelfId, bookIds: allocation.bookIds })
-      console.log("Checking newAllocations: ");
-      newAllocations.map(allocation => {
-        console.log(`Shelf: ${allocation.shelfId}  Books: ${allocation.bookIds} `);
-      })
     })
-    this.setState({allocations: newAllocations})
-    this.buildDataSet()
-    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+      // Add book to new shelf
+    newAllocations.map(allocation => {
+      if (allocation.shelfId === toShelfId) {
+        allocation.bookIds.push(bookId)
+      }
+    })
+    this.setState({allocations: newAllocations}, () => {
+      console.log(JSON.stringify(this.state.allocations));
+      this.buildDataSet();
+    });
     console.log("Checking new state: ");
     this.state.allocations.map(allocation => {
       console.log(`Shelf: ${allocation.shelfId}  Books: ${allocation.bookIds} `);
-    })
-    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    });
+    this.dataForBookshelf(toShelfId);
+    console.log(">>> Leaving changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
   }
 
 
@@ -156,8 +214,15 @@ class App extends React.Component {
       <div className="app">
         <Banner main="MyReads"
                 sub="A project for the Udacity React Developer Course"
+                debugtext={JSON.stringify(this.state.allocations)}
         />
-        <Content sortedShelvesWithBookAllocations={this.state.sortedShelvesWithBookAllocations}
+        <div>
+          {JSON.stringify(this.state.allocations)}
+        </div>
+        <Content sortedShelvesWithBookAllocations={
+                  this.state.sortedShelvesWithBookAllocations}
+                  dataForBookshelf ={this.dataForBookshelf}
+                  dataForShelfChanger ={this.dataForShelfChanger}
                   changeAllocation = {this.changeAllocation}
         />
         <Footer />

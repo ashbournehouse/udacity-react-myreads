@@ -5,84 +5,66 @@ import './shelfchanger.css'
 
 class ShelfChanger extends React.Component {
 
+  /****************************************************
+  /* This componet is responsible ofr displaying and
+  /* processing the list box that moves books between
+  /* shelves.
+  /*
+  /* DATA CONSIDERATIONS
+  /*  - Returns: Book ID with toShelf ID
+  /*  - Requires: Book ID with all shelf names and IDs
+  /*
+  /* TO DO:
+  /*  - Clean implementation of data in and out
+  ****************************************************/
+
   state = {
-    shelvesData: [],
-    selectedShelf: "",
+    bookId: 0,
+    selectedShelfId: 0,
+    shelves: []
   }
 
 
   constructor(props) {
     super(props);
-    const tempShelvesData = this.state.shelvesData.slice(0);
-    const {shelfName, shelves, changeAllocation} = this.props;
-    changeAllocation
-      //
-      // Update the state from props before rendering
-      //
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-    console.log(`Shelf name is: ${shelfName}`);
-    console.log(`Shelf options are:`);
-    shelves.map(shelf => {
-      console.log(` - ${shelf}`);
-    })
-    console.log('-----------------------------------');
-    console.log(JSON.stringify(tempShelvesData));
-    console.log('-----------------------------------');
-    shelves.map(shelf => {
-      console.log(`About to add to state for ${shelf}`);
-      tempShelvesData.push({
-            shelfName: shelf,
-            shelfValue: (shelf.toLowerCase().replace(/\s/g,'')),
-            shelfSelected: (shelf === shelfName ? true : false),
-      });
-    console.log('Updated shelvesData is:');
-    console.log(JSON.stringify(tempShelvesData));
-    });
-    tempShelvesData.map(tempShelfData => {
-      if (tempShelfData.shelfSelected === true) {
-        this.state.selectedShelf = tempShelfData.shelfValue;
-      }
-    })
-    this.state.shelvesData = tempShelvesData;
-    console.log('Updated state is:');
-    console.log(JSON.stringify(this.state));
-    console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
+    console.log(">>> Entering shelfchanger constructor >>>>>>>>>>>>>>>>>")
+    console.log(" - (props) contains:")
+    console.log(JSON.stringify(props))
+    const {thisBookId, thisShelfId, dataForShelfChanger, changeAllocation} = this.props;
+    //console.log(JSON.stringify(dataForShelfChanger()))
+    this.state.bookId = thisBookId;
+    this.state.selectedShelfId = thisShelfId;
+    this.state.shelves = dataForShelfChanger().shelfChoices.slice(0)
+    console.log(" - local state now contains:")
+    console.log(JSON.stringify(this.state))
+    console.log(">>> Leaving shelfchanger constructor >>>>>>>>>>>>>>>>>")
   }
 
   handleSelect = (event) => {
+    console.log(">>> Entering shelfchanger handleSelect >>>>>>>>>>>>>>>>>")
     const {changeAllocation} = this.props;
-    console.log(`Selected value is: ${event.target.value}`);
-    this.state.selectedShelf = event.target.value;
-    changeAllocation(4,1);
-    console.log('In handleSelect - updated state is:');
+    console.log(` - selected value is: ${event.target.value}`);
+    this.state.selectedShelfId = Number(event.target.value);
+    console.log(' - in handleSelect - updated state is:');
     console.log(JSON.stringify(this.state));
+    changeAllocation(this.state.bookId, this.state.selectedShelfId);
     console.log('***********************************');
   }
 
   render() {
-
-    //const {shelves} = this.props;
-    //const shelfValues = shelves.map(shelf => (shelf.toLowerCase().replace(/\s/g,'')))
-    console.log('----------------------------------')
-    console.log('In render, shelf options are:')
-    this.state.shelvesData.map(shelf => {
-      console.log(JSON.stringify(shelf));
-      console.log(` - ${shelf.shelfName}`);
-      console.log(` - ${shelf.shelfValue}`);
-      console.log(` - ${shelf.shelfSelected}`);
-      console.log('-------------------------');
-   })
+    console.log(">>> Entering shelfchanger render >>>>>>>>>>>>>>>>>")
+    console.log(" - local state contains:")
+    console.log(JSON.stringify(this.state))
     return (
       <div className="book-shelf-changer">
         <select onChange={this.handleSelect}
-                defaultValue={this.state.selectedShelf}
+                defaultValue={this.state.selectedShelfId}
         >
           <option value="move" disabled>Move to...</option>
-          {this.state.shelvesData.map(thisShelf =>
-            <option key={thisShelf.shelfValue}
-                    value={thisShelf.shelfValue}
-            >
-              {thisShelf.shelfName}
+          {this.state.shelves.map(shelf =>
+            //{console.log(`key for this option is: ${shelf.id}`)}
+            <option key={shelf.shelfId} value={shelf.shelfId} >
+              {shelf.shelfName}
             </option>
           )}
         </select>
@@ -92,3 +74,15 @@ class ShelfChanger extends React.Component {
 }
 
 export default ShelfChanger;
+
+
+/*
+          {this.state.shelvesData.map(thisShelf =>
+            <option key={thisShelf.shelfValue}
+                    value={thisShelf.shelfValue}
+            >
+              {thisShelf.shelfName}
+            </option>
+          )}
+*/
+
