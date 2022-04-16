@@ -11,27 +11,11 @@ class Content extends React.Component {
   /* This component controls the display of all the
   /* requied 'tabbed' sub-pages and the switching
   /* between them.
-  /*
-  /* TO DO:
-  /*   Currently data for the browse component is
-  /*   prepared in the app component and a reasonably
-  /*   complex object 'sortedShelvesWithBookAllocations'
-  /*   gets passed thru' from App.js to the 'Browse'
-  /*   component.
-  /*
-  /*   A better pattern might be to pass a function
-  /*   to each component further down the hierarchy
-  /*   that fetches and prepares the data required
-  /*   by that component.
   ****************************************************/
 
    render() {
-      const {sortedShelvesWithBookAllocations,
-               dataForBookshelf,
-               dataForShelfChanger,
-               changeAllocation
-            } = this.props;
-
+      console.log('>>>> Entering content render >>>>>>>>')
+      const {dataForBookshelf, dataForBrowse, changeAllocation} = this.props;
       return (
          <div className="content">
             <h2>Choose a Tab</h2>
@@ -56,17 +40,15 @@ class Content extends React.Component {
                   <Routes>
                      <Route path="/"
                            element={<Browse
-                                 sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                                 dataForBrowse = {dataForBrowse}
                                  dataForBookshelf ={dataForBookshelf}
-                                 dataForShelfChanger = {dataForShelfChanger}
                                  changeAllocation = {changeAllocation}
                            />}
                      />
                      <Route path="/browse"
                            element={<Browse
-                                 sortedShelvesWithBookAllocations={sortedShelvesWithBookAllocations}
+                                 dataForBrowse ={dataForBrowse}
                                  dataForBookshelf ={dataForBookshelf}
-                                 dataForShelfChanger ={dataForShelfChanger}
                                  changeAllocation = {changeAllocation}
                            />}
                      />
@@ -78,6 +60,7 @@ class Content extends React.Component {
             </div>
          </div>
       )
+      console.log('>>>> Leaving content render >>>>>>>>')
    }
 }
 

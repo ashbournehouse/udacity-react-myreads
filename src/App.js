@@ -52,54 +52,32 @@ class App extends React.Component {
       {shelfId: 3, bookIds: [5, 6, 7]},
       {shelfId: 4, bookIds: []},
     ],
-    sortedShelvesWithBookAllocations: [],
     screen: 'search',
   }
 
   constructor(props) {
     super(props)
-    console.log('>>> Entering APP constructor >>>>>>>>')
-
-    this.buildDataSet()
-    console.log('>>> Leaving APP constructor >>>>>>>>')
+    console.log('>> Entering APP constructor >>>>>>>>')
+    console.log('>> Leaving APP constructor >>>>>>>>')
   }
 
-  buildDataSet() {
-    console.log("Entering buildDataSet")
-      //
-      // The following logic produces an array of shelf names sorted by sortOrder value
-      //   then maps an array of shelf names from this.
-      //
-    const sortedShelves = this.state.bookshelves.sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1)
-    console.log("**********************************************")
-    console.log(JSON.stringify(sortedShelves))
-    console.log("----------------------------------------------")
-      // Go thru the sorted shelves and find their books allocations
-    sortedShelves.map(sortedShelf => {
-      this.state.allocations.map(allocation => {
-        if (allocation.shelfId === sortedShelf.id) {
-            // Add a bookIds field to each sortedShelf
-          sortedShelf.bookIds = allocation.bookIds.slice(0);
-            // Add a books objects array to each sortedShelf
-          sortedShelf.books = [];
-            // Go thru' the booksList and add the relevant book objects
-          sortedShelf.bookIds.map(bookId => {
-            this.state.booksList.map(book => {
-              if (book.id === bookId) {
-                sortedShelf.books.push(book)
-              }
-            })
-          })
+  dataForBrowse = () => {
+    console.log('>> Entering dataForBrowse >>>>>>>>')
+    var shelvesArray = [];
+      // TO DO: sort by sort order before mapping
+    this.state.bookshelves.map(shelf => {
+      shelvesArray.push(
+        {shelfId: shelf.id,
+          shelfName: shelf.name,
         }
-      })
+      )
     })
-    console.log(JSON.stringify(sortedShelves))
-    console.log("**********************************************")
-    this.state.sortedShelvesWithBookAllocations = sortedShelves
-    console.log("Leaving buildDataSet")
+    console.log('>> Leaving dataForBrowse >>>>>>>>')
+    return shelvesArray;
   }
 
   dataForBookshelf = (shelfId) => {
+    console.log('>> Entering APP dataForBookshelf >>>>>>>>')
       // Should reurn an object a bit
       // like this
       //  {shelfName: string,
@@ -109,10 +87,10 @@ class App extends React.Component {
       //     bookAuthor: string,
       //     bookCoverURL: string
       //    }]}
-    console.log('>>> Entering dataForBookshelf >>>>>>>>')
     var bookshelfData = {
       shelfName: "",
       books: [],
+      updateCount: this.state.updateCount,
     }
     this.state.bookshelves.map(shelf => {
       if (shelf.id === shelfId) {
@@ -121,60 +99,37 @@ class App extends React.Component {
     })
     this.state.allocations.map(allocation => {
       if (allocation.shelfId === shelfId) {
-        console.log('----- shelfId MATCH, books are:');
+        //console.log('----- shelfId MATCH, books are:');
         allocation.bookIds.map(bookId => {
           this.state.booksList.map(book => {
             if (book.id === bookId) {
               bookshelfData.books.push(book)
-              console.log(`Book title is: ${book.title}`)
+              //console.log(`Book title is: ${book.title}`)
             }
           })
         })
       }
     })
-    console.log(JSON.stringify(bookshelfData))
-    console.log('>>> Leaving dataForBookshelf >>>>>>>>')
+    //console.log(JSON.stringify(bookshelfData))
+    console.log('>> Leaving APP dataForBookshelf >>>>>>>>')
     return bookshelfData;
   }
 
-  dataForShelfChanger = () => {
-      // Should return an object a bit
-      // like this
-      //  {bookID: integer,
-      //    shelfChoices: [{
-      //      shelfId: integer,
-      //      shelfName: string,
-      //  }]}
-    console.log('>>> Entering dataForShelfChanger >>>>>>>>')
-    var shelfChangerData = {shelfChoices: []};
-    console.log(JSON.stringify(shelfChangerData))
-    this.state.bookshelves.map(shelf => {
-      shelfChangerData.shelfChoices.push(
-        {shelfId: shelf.id,
-          shelfName: shelf.name,
-        }
-      )
-    })
-    console.log(' - about to leave dataForShelfChanger')
-    console.log(JSON.stringify(shelfChangerData));
-    console.log('>>> Leaving dataForShelfChanger >>>>>>>>')
-    return shelfChangerData;
-  }
 
-  changeAllocation = (bookId, toShelfId) => {
+  changeAllocation = (bookId, toShelfId, myCallback) => {
       //
       // TO DO:
       //   - Check if toShelf actualy exists!!
       //   - Have a big tidy up of all the logging!!!
       //
-    console.log(">>> Entering changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
-    console.log(`Book ID is: ${bookId}`);
-    console.log(`  - type of bookId is: ${typeof bookId}`);
-    console.log(`Shelf to move to is: ${toShelfId}`);
-    console.log(`  - type of toShelfId is: ${typeof toShelfId}`);
+    console.log(">> Entering changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
+    //console.log(`Book ID is: ${bookId}`);
+    //console.log(`  - type of bookId is: ${typeof bookId}`);
+    //console.log(`Shelf to move to is: ${toShelfId}`);
+    //console.log(`  - type of toShelfId is: ${typeof toShelfId}`);
     var newAllocations = this.state.allocations.slice(0);
-    console.log(`New allocations: `);
-    console.log(JSON.stringify(newAllocations));
+    //console.log(`New allocations: `);
+    //console.log(JSON.stringify(newAllocations));
       // Remove book from current shelf
     newAllocations.map(allocation => {
       if (allocation.bookIds.includes(bookId)) {
@@ -190,47 +145,33 @@ class App extends React.Component {
         allocation.bookIds.push(bookId)
       }
     })
-    this.setState({allocations: newAllocations}, () => {
-      console.log(JSON.stringify(this.state.allocations));
-      this.buildDataSet();
-    });
+    this.setState({allocations: newAllocations})
     console.log("Checking new state: ");
     this.state.allocations.map(allocation => {
       console.log(`Shelf: ${allocation.shelfId}  Books: ${allocation.bookIds} `);
     });
-    this.dataForBookshelf(toShelfId);
-    console.log(">>> Leaving changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
+    //this.dataForBookshelf(toShelfId);
+    console.log(">> Leaving changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
   }
 
-
   render() {
-      //
-      // The following logic produces an array of shelf names sorted by sortOrder value
-      //   then maps an array of shelf names from this.
-      //
-    //const sortedShelves = this.state.bookshelves.sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1)
      //
+    console.log(">> Entering APP render >>>>>>>>>");
     return (
       <div className="app">
         <Banner main="MyReads"
                 sub="A project for the Udacity React Developer Course"
                 debugtext={JSON.stringify(this.state.allocations)}
         />
-        <div>
-          {JSON.stringify(this.state.allocations)}
-        </div>
-        <Content sortedShelvesWithBookAllocations={
-                  this.state.sortedShelvesWithBookAllocations}
-                  dataForBookshelf ={this.dataForBookshelf}
-                  dataForShelfChanger ={this.dataForShelfChanger}
-                  changeAllocation = {this.changeAllocation}
+        <Content dataForBookshelf = {this.dataForBookshelf}
+                 dataForBrowse = {this.dataForBrowse}
+                 changeAllocation = {this.changeAllocation}
         />
         <Footer />
       </div>
     )
+    console.log(">> Leaving APP render >>>>>>>>>");
   }
 }
 
 export default App
-
-
