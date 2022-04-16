@@ -117,19 +117,8 @@ class App extends React.Component {
 
 
   changeAllocation = (bookId, toShelfId, myCallback) => {
-      //
-      // TO DO:
-      //   - Check if toShelf actualy exists!!
-      //   - Have a big tidy up of all the logging!!!
-      //
     console.log(">> Entering changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
-    //console.log(`Book ID is: ${bookId}`);
-    //console.log(`  - type of bookId is: ${typeof bookId}`);
-    //console.log(`Shelf to move to is: ${toShelfId}`);
-    //console.log(`  - type of toShelfId is: ${typeof toShelfId}`);
     var newAllocations = this.state.allocations.slice(0);
-    //console.log(`New allocations: `);
-    //console.log(JSON.stringify(newAllocations));
       // Remove book from current shelf
     newAllocations.map(allocation => {
       if (allocation.bookIds.includes(bookId)) {
@@ -146,11 +135,6 @@ class App extends React.Component {
       }
     })
     this.setState({allocations: newAllocations})
-    console.log("Checking new state: ");
-    this.state.allocations.map(allocation => {
-      console.log(`Shelf: ${allocation.shelfId}  Books: ${allocation.bookIds} `);
-    });
-    //this.dataForBookshelf(toShelfId);
     console.log(">> Leaving changeAllocation >>>>>>>>>>>>>>>>>>>>>>>>");
   }
 

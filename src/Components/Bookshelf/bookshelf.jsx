@@ -9,12 +9,6 @@ class Bookshelf extends React.Component {
   /* named bookshelf.
   ****************************************************/
 
-  constructor(props) {
-    console.log('>>>>>>>> Entering bookshelf constructor >>')
-    super(props);
-    console.log('>>>>>>>> Leaving bookshelf constructor >>')
-  }
-
   render() {
     console.log('>>>>>>>> Entering bookshelf render >>')
     const {shelfId, dataForBookshelf, dataForBrowse, changeAllocation} = this.props;

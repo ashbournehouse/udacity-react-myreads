@@ -6,7 +6,7 @@ import './shelfchanger.css'
 class ShelfChanger extends React.Component {
 
   /****************************************************
-  /* This componet is responsible ofr displaying and
+  /* This component is responsible for displaying and
   /* processing the list box that moves books between
   /* shelves.
   /*
@@ -41,7 +41,7 @@ class ShelfChanger extends React.Component {
         </select>
       </div>
     )
-    console.log('+++++++++++ Leaving ShelfChanger render')
+    console.log('>>>>>>>>>> Leaving ShelfChanger render')
   }
 }
 
