@@ -1,10 +1,33 @@
 import React from 'react';
 
+import * as BooksAPI from '../../BooksAPI.js'
+
 import './search.css'
 
 class Search extends React.Component {
 
-	render () {
+	fetchBooks = (bookId) => {
+		console.log(`>>> entering fetchBooks`);
+		const returnedBooks = BooksAPI.getAll();
+		console.log(returnedBooks);
+		/*
+		returnedBooks.map(book => {
+			console.log(` - ${book.title}`
+		});
+		*/
+		console.log(`>>> leaving fetchBooks`);
+		return true;
+	};
+
+	handleSubmit = (event) => {
+    event.preventDefault();
+		console.log(`>>> entering handleSubmit`);
+		var something = {};
+		something = this.fetchBooks(1);
+		console.log(`>>> leaving handleSubmit`);
+	};
+
+	render() {
 
 		return (
       <div className="search">
@@ -22,8 +45,19 @@ class Search extends React.Component {
 	          <input type="text" placeholder="Search by title or author"/>
 	        </div>
 	      </div>
+	      <div className='test-form-div'>
+        	<form	className="test-form" onSubmit={this.handleSubmit}>
+          	<div className="test-button-div">
+            	<button className="btn test-button">
+                 GET BOOKS
+            	</button>
+          	</div>
+        	</form>
+	      </div>
 	      <div className="search-books-results">
-	        <ol className="books-grid"></ol>
+	        <ol className="books-grid">
+
+	        </ol>
 	      </div>
  	    </div>
 		)
