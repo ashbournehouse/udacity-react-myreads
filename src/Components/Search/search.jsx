@@ -6,24 +6,38 @@ import './search.css'
 
 class Search extends React.Component {
 
-	fetchBooks = (bookId) => {
+	async fetchBooks()  {
 		console.log(`>>> entering fetchBooks`);
 		const returnedBooks = BooksAPI.getAll();
-		console.log(returnedBooks);
-		/*
-		returnedBooks.map(book => {
-			console.log(` - ${book.title}`
-		});
-		*/
 		console.log(`>>> leaving fetchBooks`);
-		return true;
+		return returnedBooks;
+	};
+
+	myBooks() {
+		BooksAPI.getAll().then (
+			returnedBooks => {
+				returnedBooks.map(book => {
+					console.log(`${book.id}: ${book.title}`)
+				})
+			},
+		)
+	};
+
+	myBooks2() {
+		BooksAPI.search('Lahiri', 1).then (
+			returnedBooks => {
+				returnedBooks.map(book => {
+					console.log(`${book.id}: ${book.title}`)
+				})
+			},
+		)
 	};
 
 	handleSubmit = (event) => {
     event.preventDefault();
 		console.log(`>>> entering handleSubmit`);
 		var something = {};
-		something = this.fetchBooks(1);
+		something = this.myBooks2();
 		console.log(`>>> leaving handleSubmit`);
 	};
 
